@@ -13,6 +13,7 @@ public class GreetingService {
     private final AtomicLong counter = new AtomicLong();
 
     public Greeting getGreeting(String name) {
+        System.out.println("call service");
         try {
             Thread.sleep(30000);
         } catch (InterruptedException e) {

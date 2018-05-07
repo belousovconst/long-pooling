@@ -36,9 +36,8 @@ public class GreetingController {
         System.out.println(tasks.size());
         if (!tasks.containsKey(token)) {
             System.out.println("Task with token not exist");
-            task = new CompletableFuture();
+            task = CompletableFuture.supplyAsync(() -> greetingService.getGreeting(name));
             tasks.put(token, task);
-            task.supplyAsync(() -> greetingService.getGreeting(name));
         } else {
             System.out.println("Task with token exist");
             task = tasks.get(token);
@@ -90,42 +89,5 @@ public class GreetingController {
         };
         timer.schedule(timerTask, delay);
     }
-
-
-
-
-
-
-
-
-
-//    @GetMapping("/greeting-javaconfig")
-//    public Greeting greetingWithJavaconfig(@RequestParam(required=false, defaultValue="World") String name) {
-//        System.out.println("==== in greeting ====");
-//        return new Greeting(counter.incrementAndGet(), String.format(template, name));
-//    }
-
-//    public void pollMsg(){
-//        Timer timer = new Timer();
-//        TimerTask myTask = new TimerTask() {
-//            @Override
-//            public void run() {
-//                CompletableFuture.supplyAsync(this::sendMsg).thenAccept(this::notify);
-//            }
-//
-//            private <String> java.lang.String sendMsg() {
-//                RestTemplate restTemplate = new RestTemplate();
-//                java.lang.String msg  = restTemplate.getForObject("http://example.com", java.lang.String.class);
-//                return msg;
-//            }
-//
-//            private <String> void notify(java.lang.String msg) {
-//                System.out.println("Process this message for further: " + msg);
-//                run();
-//            }
-//        };
-//        timer.schedule(myTask, 1000, 2000);
-
-//    }
 
 }
